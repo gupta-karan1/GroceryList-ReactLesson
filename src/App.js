@@ -3,7 +3,7 @@ import AddItem from "./AddItem";
 import Content from "./Content";
 import SearchItem from "./SearchItem";
 import Footer from "./Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   // App component
@@ -15,17 +15,22 @@ function App() {
   const [newItem, setNewItem] = useState(""); // new item state
   const [search, setSearch] = useState(""); // search state
 
-  const setAndSaveItems = (newItems) => {
-    setItems(newItems); // update state with new items
-    localStorage.setItem("items", JSON.stringify(newItems)); // save to localStorage as string
-  };
+  useEffect(() => {
+    // update localStorage when items state changes
+    localStorage.setItem("items", JSON.stringify(items)); // save items to localStorage as string
+  }, [items]); // run when items state changes
+
+  // const setAndSaveItems = (newItems) => {
+  //   setItems(newItems); // update state with new items
+  //   localStorage.setItem("items", JSON.stringify(newItems)); // save to localStorage as string
+  // };
 
   const addItem = (item) => {
     // add item to list and save to localStorage
     const id = items.length ? items[items.length - 1].id + 1 : 1; // get new id for item to add
     const newItem = { id, item, checked: false }; // create new item
     const listItems = [...items, newItem]; // create new list with new item
-    setAndSaveItems(listItems); // update state and save to localStorage
+    setItems(listItems); // update state
   };
 
   const handleCheck = (id) => {
@@ -35,13 +40,13 @@ function App() {
         item // create new list with updated checked state
       ) => (item.id === id ? { ...item, checked: !item.checked } : item) // toggle checked state of item with matching id
     );
-    setAndSaveItems(listItems); // update state and save to localStorage
+    setItems(listItems); // update state
   };
 
   const handleDelete = (id) => {
     // delete item from list and save to localStorage
     const listItems = items.filter((item) => item.id !== id); // create new list without item with matching id
-    setAndSaveItems(listItems); // update state and save to localStorage
+    setItems(listItems); // update state
   };
 
   const handleSubmit = (e) => {
