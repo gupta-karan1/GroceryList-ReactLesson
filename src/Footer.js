@@ -1,4 +1,5 @@
 const Footer = ({ length }) => {
+  // add length prop to Footer component and destructure it from props
   return (
     <footer>
       <p>

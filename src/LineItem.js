@@ -2,6 +2,7 @@
 import { FaTrashAlt } from "react-icons/fa";
 
 const LineItem = ({ item, handleCheck, handleDelete }) => {
+  // add item, handleCheck, and handleDelete props to LineItem component and destructure them from props
   return (
     <li className="item">
       <input

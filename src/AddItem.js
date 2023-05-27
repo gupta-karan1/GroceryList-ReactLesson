@@ -2,7 +2,8 @@ import { FaPlus } from "react-icons/fa";
 import { useRef } from "react";
 
 const AddItem = ({ newItem, setNewItem, handleSubmit }) => {
-  const inputRef = useRef();
+  // add newItem, setNewItem, and handleSubmit props to AddItem component and destructure them from props
+  const inputRef = useRef(); // create a ref for the input element and assign it to inputRef variable
   return (
     <form className="addForm" onSubmit={handleSubmit}>
       <label htmlFor="addItem">Add Item</label>

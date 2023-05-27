@@ -1,5 +1,7 @@
 import LineItem from "./LineItem";
+
 const ItemList = ({ items, handleCheck, handleDelete }) => {
+  // add items, handleCheck, and handleDelete props to ItemList component and destructure them from props
   return (
     <ul>
       {items.map((item) => (
