@@ -1,23 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./Header";
+import AddItem from "./AddItem";
+import Content from "./Content";
+import Footer from "./Footer";
+import { useState } from "react";
 
 function App() {
+  const [items, setItems] = useState(
+    JSON.parse(localStorage.getItem("items")) || []
+  );
+
+  const [newItem, setNewItem] = useState("");
+
+  const setAndSaveItems = (newItems) => {
+    setItems(newItems);
+    localStorage.setItem("items", JSON.stringify(newItems));
+  };
+
+  const addItem = (item) => {
+    const id = items.length ? items[items.length - 1].id + 1 : 1;
+    const newItem = { id, item, checked: false };
+    const listItems = [...items, newItem];
+    setAndSaveItems(listItems);
+  };
+
+  const handleCheck = (id) => {
+    const listItems = items.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    setAndSaveItems(listItems);
+  };
+
+  const handleDelete = (id) => {
+    const listItems = items.filter((item) => item.id !== id);
+    setAndSaveItems(listItems);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!newItem) return;
+    // console.log(newItem);
+    addItem(newItem);
+    setNewItem("");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header title="Grocery List" />
+      <AddItem
+        newItem={newItem}
+        setNewItem={setNewItem}
+        handleSubmit={handleSubmit}
+      />
+      <Content
+        items={items}
+        handleCheck={handleCheck}
+        handleDelete={handleDelete}
+      />
+      <Footer length={items.length} />
     </div>
   );
 }
