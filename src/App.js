@@ -61,7 +61,7 @@ function App() {
       <Content
         items={items.filter((item) =>
           item.item.toLowerCase().includes(search.toLowerCase())
-        )}
+        )} // filter items by search term and pass to Content component as items prop
         handleCheck={handleCheck}
         handleDelete={handleDelete}
       />

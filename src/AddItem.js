@@ -15,12 +15,12 @@ const AddItem = ({ newItem, setNewItem, handleSubmit }) => {
         required
         value={newItem}
         onChange={(e) => setNewItem(e.target.value)}
-        ref={inputRef}
+        ref={inputRef} // assign inputRef to ref attribute of input element so it can be referenced in other components
       />
       <button
         type="submit"
         aria-label="Add Item"
-        onClick={() => inputRef.current.focus()}
+        onClick={() => inputRef.current.focus()} // focus on input element when button is clicked to add item
       >
         <FaPlus />
       </button>
